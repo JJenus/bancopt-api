@@ -14,6 +14,7 @@ export const getAppSettings = async (): Promise<AppSettings> => {
 			result = await saveSettings({
 				defaultBaseCurrency: "USD",
 				defaultLanguage: "en",
+				currencySymbol: "$",
 			});
 		}
 		return result;
@@ -30,12 +31,13 @@ export const saveSettings = async (
 
 		return result;
 	} catch (error) {
-		throw new Error("Unable to save settings");
+		console.log(error);
+		throw new Error("Unable to save settings x");
 	}
 };
 
 export const updateSettings = async (
-    id: string,
+	id: string,
 	settingUpdate: AppSettings
 ): Promise<AppSettings> => {
 	let setting;
@@ -46,6 +48,7 @@ export const updateSettings = async (
 			throw new Error();
 		}
 	} catch (error) {
+		console.log(error);
 		throw new Error("Unauthorized settings update");
 	}
 
@@ -55,6 +58,6 @@ export const updateSettings = async (
 
 		return setting;
 	} catch (error) {
-		throw new Error("Unable to save settings");
+		throw new Error("Unable to update settings");
 	}
 };

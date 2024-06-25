@@ -6,6 +6,7 @@ export const appSettings = zod.object({
 	id: zod.string().uuid().optional(),
 	defaultLanguage: zod.string().min(2),
 	defaultBaseCurrency: zod.string().min(3),
+	currencySymbol: zod.string().optional(),
 });
 
 export type appSettings = zod.infer<typeof appSettings>;
@@ -14,6 +15,7 @@ class AppSettings extends Model<appSettings> implements appSettings {
 	declare id: string;
 	declare defaultLanguage: string;
 	declare defaultBaseCurrency: string;
+	declare currencySymbol: string;
 }
 
 AppSettings.init(
@@ -27,6 +29,9 @@ AppSettings.init(
 			type: DataTypes.STRING,
 		},
 		defaultBaseCurrency: {
+			type: DataTypes.STRING,
+		},
+		currencySymbol: {
 			type: DataTypes.STRING,
 		},
 	},

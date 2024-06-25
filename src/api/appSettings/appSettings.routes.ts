@@ -12,7 +12,7 @@ router.post(
 	settingsController.createSettings
 );
 router.put(
-	"/",
+	"/:id",
 	validateRequest({ body: appSettings }),
 	settingsController.updateSettings
 );
