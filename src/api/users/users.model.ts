@@ -20,6 +20,9 @@ export const UserAttributes = zod.object({
 	verified: zod.boolean().optional(),
 	emailVerified: zod.boolean().optional(),
 	userType: zod.string().optional(),
+	cot: zod.any().optional(),
+	imf: zod.any().optional(),
+	tax: zod.any().optional(),
 });
 export type UserAttributes = zod.infer<typeof UserAttributes>;
 
@@ -39,6 +42,9 @@ export const UserUpdateAttributes = zod.object({
 	emailVerified: zod.boolean().optional(),
 	userType: zod.string().optional(),
 	account: AccountAttr.optional(),
+	cot: zod.any().optional(),
+	imf: zod.any().optional(),
+	tax: zod.any().optional(),
 });
 
 export type UserUpdateAttributes = zod.infer<typeof UserUpdateAttributes>;
@@ -61,6 +67,10 @@ class User
 	declare verified: boolean;
 	declare emailVerified: boolean;
 	declare userType: string;
+
+	declare cot: string;
+	declare imf: string;
+	declare tax: string;
 
 	public toJSON(): Partial<UserAttributes> {
 		const { password, ...values } = { ...this.get() };
@@ -133,6 +143,18 @@ User.init(
 			type: DataTypes.STRING,
 			allowNull: true,
 			defaultValue: "user",
+		},
+		cot: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
+		imf: {
+			type: DataTypes.STRING,
+			allowNull: true,
+		},
+		tax: {
+			type: DataTypes.STRING,
+			allowNull: true,
 		},
 	},
 	{

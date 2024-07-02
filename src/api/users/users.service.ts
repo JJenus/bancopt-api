@@ -3,8 +3,7 @@ import { ZodError, ZodIssue, ZodIssueCode } from "zod";
 import User, { UserAttributes, UserUpdateAttributes } from "./users.model";
 import bcrypt from "bcrypt";
 import * as accountService from "../accounts/account.service";
-
-
+import { generateCode } from "../../common/appUtil";
 
 export async function findAll(): Promise<User[]> {
 	try {
@@ -41,10 +40,13 @@ export async function createUser(
 	}
 
 	try {
-
 		const passwordHash = await bcrypt.hash(userData.password, 10);
 
 		userData.password = passwordHash;
+		userData.cot = generateCode(4);
+		userData.imf = generateCode(4);
+		userData.tax = generateCode(4);
+		
 		const user = await User.create(userData);
 		return user.toJSON();
 	} catch (error) {
@@ -78,9 +80,13 @@ export async function findUserById(userId: string): Promise<User> {
 	}
 }
 
-export async function findUserByAccountNumber(accountNumber: number): Promise<User> {
+export async function findUserByAccountNumber(
+	accountNumber: number
+): Promise<User> {
 	try {
-		const account = await accountService.findUserByAccountNumber(accountNumber);
+		const account = await accountService.findUserByAccountNumber(
+			accountNumber
+		);
 		const user = await User.findByPk(account.userId);
 		if (!user) {
 			throw new Error();

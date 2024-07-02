@@ -94,9 +94,11 @@ export const createTransaction = async (
 ) => {
 	let transactionLog: Transaction | null = null;
 	const transaction: TransactionAttr = req.body;
+	console.log("TRansaction", transaction);
 
 	try {
-		if (!req.body.beneficiary) {
+		if (!transaction.beneficiary) {
+			console.log("No Benef");
 			res.status(422);
 			throw new Error("Beneficiary is required");
 		}
@@ -128,7 +130,9 @@ export const createTransaction = async (
 
 		// Balance receiver account
 
-		if ((transaction.type = TransactionTypes.SEND)) {
+		if (transaction.type == TransactionTypes.SEND) {
+			console.log("Send transaction");
+
 			const receiverAccount: Account = await findUserAccount(
 				transaction.beneficiary?.userId!
 			);
@@ -150,10 +154,11 @@ export const createTransaction = async (
 						type: NotificationType.CREDIT,
 					});
 			} catch (error) {}
+		} else {
+			console.log("Not Send");
 		}
 
 		transactionLog.setDataValue("status", TransactionStatus.PROCESSING);
-		// TODO: create notification websocket and pass this notification
 
 		// notify sender: This shouldn't interrupt a successful transaction
 		try {
