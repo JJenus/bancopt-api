@@ -19,6 +19,7 @@ export const UserAttributes = zod.object({
 	dob: zod.any().optional(),
 	verified: zod.boolean().optional(),
 	emailVerified: zod.boolean().optional(),
+	status: zod.string().optional(),
 	userType: zod.string().optional(),
 	cot: zod.any().optional(),
 	imf: zod.any().optional(),
@@ -42,6 +43,7 @@ export const UserUpdateAttributes = zod.object({
 	emailVerified: zod.boolean().optional(),
 	userType: zod.string().optional(),
 	account: AccountAttr.optional(),
+	status: zod.string().optional(),
 	cot: zod.any().optional(),
 	imf: zod.any().optional(),
 	tax: zod.any().optional(),
@@ -66,6 +68,7 @@ class User
 	declare dob: Date;
 	declare verified: boolean;
 	declare emailVerified: boolean;
+	declare status: string;
 	declare userType: string;
 
 	declare cot: string;
@@ -92,7 +95,6 @@ User.init(
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			unique: true,
 			validate: {
 				isEmail: true,
 			},
@@ -133,6 +135,11 @@ User.init(
 			type: DataTypes.BOOLEAN,
 			allowNull: false,
 			defaultValue: false,
+		},
+		status: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			defaultValue: "ACTIVE",
 		},
 		emailVerified: {
 			type: DataTypes.BOOLEAN,

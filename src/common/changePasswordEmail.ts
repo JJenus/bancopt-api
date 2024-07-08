@@ -69,7 +69,7 @@ export const passwordEmail = `<!DOCTYPE html>
 									<!--begin:Logo-->
 									<div style="margin-bottom: 10px">
 										<a
-											href="https://bancopt.com/"
+											href="https://www.bancopt.com/"
 											rel="noopener"
 											target="_blank"
 											style="
@@ -85,7 +85,7 @@ export const passwordEmail = `<!DOCTYPE html>
 													height: 50px;
 													margin-top: 10px;
 												"
-												src="https://bancopt.com/assets/media/logos/logo-ban.png"
+												src="https://www.bancopt.com/assets/media/logos/logo-ban.png"
 											/>
 										</a>
 										<div
@@ -107,7 +107,7 @@ export const passwordEmail = `<!DOCTYPE html>
 										<img
 										width="150"
 											alt="Logo"
-											src="https://bancopt.com/assets/media/auth/password-changed.png"
+											src="https://www.bancopt.com/assets/media/auth/password-changed.png"
 										/>
 									</div>
 									<!--end:Media-->
@@ -151,7 +151,7 @@ export const passwordEmail = `<!DOCTYPE html>
 
 									<!--begin:Action-->
 									<a
-										href="https://bancopt.com/change-password/?token={{token}}"
+										href="https://www.bancopt.com/change-password/?token={{token}}"
 										target="_blank"
 										style="
 											background-color: #3e97ff;
@@ -202,14 +202,14 @@ export const passwordEmail = `<!DOCTYPE html>
 								<p style="margin-bottom: 4px">
 									You may reach us at
 									<a
-										href="https://bancopt.com/"
+										href="https://www.bancopt.com/"
 										rel="noopener"
 										target="_blank"
 										style="font-weight: 600"
 										>bancopt.com</a
 									>.
 								</p>
-								<p>We serve Mon-Fri, 9AM-18AM</p>
+								<p>We serve Mon-Fri, 09:00-18:00</p>
 							</td>
 						</tr>
 
@@ -222,12 +222,12 @@ export const passwordEmail = `<!DOCTYPE html>
 								<a href="#" style="margin-right: 10px"
 									><img
 										alt="Logo"
-										src="https://bancopt.com/assets/media/email/icon-facebook.png"
+										src="https://www.bancopt.com/assets/media/email/icon-facebook.png"
 								/></a>
 								<a href="#"
 									><img
 										alt="Logo"
-										src="https://bancopt.com/assets/media/email/icon-twitter.png"
+										src="https://www.bancopt.com/assets/media/email/icon-twitter.png"
 								/></a>
 							</td>
 						</tr>
@@ -248,7 +248,7 @@ export const passwordEmail = `<!DOCTYPE html>
 								<p>
 									&copy Copyright Bancopt.
 									<a
-										href="https://bancopt.com/"
+										href="https://www.bancopt.com/"
 										rel="noopener"
 										target="_blank"
 										style="

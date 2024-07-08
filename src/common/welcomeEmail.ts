@@ -479,7 +479,7 @@ export const welcomeEmail = `<!DOCTYPE html>
 										>bancopt.com</a
 									>.
 								</p>
-								<p>We serve Mon-Fri, 9AM-18AM</p>
+								<p>We serve Mon-Fri, 09:00-18:00</p>
 							</td>
 						</tr>
 

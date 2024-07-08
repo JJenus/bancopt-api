@@ -8,8 +8,15 @@ export const Login = zod.object({
 
 export type Login = zod.infer<typeof Login>;
 
+export type OTP = {
+	token: number,
+	createdAt: Date,
+	allowedTime: number
+}
+
 export type AuthToken = {
 	userId: string;
 	user: UserUpdateAttributes
 	token: string;
+	otp?: OTP
 };

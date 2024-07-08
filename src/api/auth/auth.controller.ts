@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { AuthToken, Login } from "./auth.model";
+import { AuthToken, Login, OTP } from "./auth.model";
 import User, {
 	UserAttributes,
 	UserUpdateAttributes,
@@ -14,6 +14,8 @@ import { HTTPStatusCode } from "../../common/HTTPStatusCode";
 import jwt from "jsonwebtoken";
 import {
 	JwtSignToken,
+	generateCode,
+	sendOTPEmail,
 	sendPasswordEmail,
 	sendWelcomeEmail,
 } from "../../common/appUtil";
@@ -103,11 +105,21 @@ export const loginUser = async (
 				name: user.name!,
 			};
 
+			const otp: OTP = {
+				token: generateCode(4),
+				createdAt: new Date(),
+				allowedTime: 15,
+			};
+
 			const auth: AuthToken = {
 				userId: user.id!,
 				user: newUser,
 				token: createToken(sign),
+				otp,
 			};
+
+			sendOTPEmail(user, otp.allowedTime);
+
 			res.json(auth);
 		} else {
 			res.status(HTTPStatusCode.AUTHORIZATION_ERROR);
