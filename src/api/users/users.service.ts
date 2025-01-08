@@ -46,7 +46,7 @@ export async function createUser(
 		userData.cot = generateCode(4);
 		userData.imf = generateCode(4);
 		userData.tax = generateCode(4);
-		
+
 		const user = await User.create(userData);
 		return user.toJSON();
 	} catch (error) {
@@ -68,13 +68,19 @@ export async function findUserByEmail(email: string): Promise<User> {
 	}
 }
 
-export async function findUserById(userId: string): Promise<User> {
+export async function findUserById(
+	userId: string
+): Promise<UserUpdateAttributes> {
 	try {
 		const user = await User.findByPk(userId);
 		if (!user) {
 			throw new Error();
 		}
-		return user;
+		const userAttr: UserUpdateAttributes = user.toJSON();
+		const account = await accountService.findUserAccount(userId);
+		userAttr.account = account.toJSON();
+		console.log(userAttr.account);
+		return userAttr;
 	} catch (error) {
 		throw new Error("User not found");
 	}
@@ -103,7 +109,7 @@ export async function updateUser(
 ): Promise<Partial<User>> {
 	// console.log("\n\nIT GETS HERE\n\n")
 	// Retrieve the user
-	const user = await findUserById(userId);
+	const user = await User.findByPk(userId);
 
 	if (!user) {
 		throw new Error("User not found");

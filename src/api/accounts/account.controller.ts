@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import * as accountService from "./account.service";
 import * as Users from "../users/users.service";
+import * as transactionService from "../transactions/transactions.service";
 
 import Account, {
 	AccountAttr,
@@ -9,6 +10,8 @@ import Account, {
 } from "./account.model";
 import { ParamsWithId } from "../../interfaces/ParamsWithId";
 import User from "../users/users.model";
+import { TransactionStatus, TransactionTypes } from "../transactions/transactions";
+import { TransactionAttr } from "../transactions/transactions.model";
 
 export async function findAccount(
 	req: Request<ParamsWithId, Partial<Account>, null>,
@@ -36,11 +39,24 @@ export async function updateBalance(
 		const account: Account = await accountService.findUserAccount(user.id);
 
 		account.amount = account.amount | 0;
-		const balance = req.body.amount;
+		const depositAmount = req.body.amount;
 
-		account.set("amount", balance + account.amount);
+		account.set("amount", depositAmount + account.amount);
 
 		await account.save();
+
+		const transactionData: TransactionAttr = {
+			senderId: user.id,
+			receiverId: user.id,
+			amount: depositAmount,
+			type: TransactionTypes.CREDIT,
+			notes: 'Deposit transaction',
+			status: TransactionStatus.COMPLETED
+		  };
+		  
+		  // Parse and validate the object
+
+		  await transactionService.createTransaction(transactionData);
 
 		res.json(account);
 	} catch (error) {

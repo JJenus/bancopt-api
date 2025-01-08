@@ -144,8 +144,10 @@ export const verifyEmail = async (
 
 		// validate password then
 
-		user.setDataValue("emailVerified", true);
-		await user.save();
+		await User.update(
+			{ emailVerified: true },
+			{ where: { id: req.body.id } }
+		);
 
 		try {
 			await Notifications.createNotification({
@@ -171,9 +173,12 @@ export const resetPassword = async (
 	try {
 		const user = await findUserById(req.body.id!);
 		const passwordHash = await bcrypt.hash(req.body.password!, 10);
-		user.setDataValue("password", passwordHash);
+		// user.setDataValue("password", passwordHash);
 
-		await user.save();
+		await User.update(
+			{ password: passwordHash },
+			{ where: { id: req.body.id } }
+		);
 
 		try {
 			await Notifications.createNotification({

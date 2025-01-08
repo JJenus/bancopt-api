@@ -57,13 +57,13 @@ export async function findAll(
 }
 
 export async function findUser(
-	req: Request<ParamsWithId, Partial<User>, null>,
-	res: Response<Partial<User> | null>,
+	req: Request<ParamsWithId, UserUpdateAttributes, null>,
+	res: Response<UserUpdateAttributes>,
 	next: NextFunction
 ) {
 	try {
-		let user: Partial<User> = await userService.findUserById(req.params.id);
-
+		const user: UserUpdateAttributes = await userService.findUserById(req.params.id);
+		console.log("USER: ", user.account)
 		res.json(user);
 	} catch (error) {
 		next(error);

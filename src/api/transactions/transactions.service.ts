@@ -69,15 +69,15 @@ export const createTransaction = async (
 		transaction.transactionId = generateAlphaNum(15);
 		console.log("Created ID");
 
-		while (
-			await Transaction.findOne({
-				where: {
-					transactionId: transaction.transactionId,
-				},
-			})
-		) {
-			transaction.transactionId = generateAlphaNum(15);
-		}
+		// while (
+		// 	await Transaction.findOne({
+		// 		where: {
+		// 			transactionId: transaction.transactionId,
+		// 		},
+		// 	})
+		// ) {
+		// 	transaction.transactionId = generateAlphaNum(15);
+		// }
 		console.log("Created ID Perfected");
 		const result = await Transaction.create(transaction);
 

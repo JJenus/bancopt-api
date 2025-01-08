@@ -14,6 +14,8 @@ import {
 } from "../notifications/notifications";
 import Notification from "../notifications/notifications.model";
 import { findUserById } from "../users/users.service";
+import * as userService from "../users/users.service";
+
 
 export const findUserTransactions = async (
 	req: Request<ParamsWithId>,
@@ -37,6 +39,10 @@ export const findUserTransactions = async (
 				const beneficiary = await Beneficiaries.findBeneficiaryById(
 					transaction.beneficiaryId
 				);
+				if (transaction.beneficiaryId === transaction.senderId) {
+					const user = await userService.findUserById(transaction.senderId);
+					beneficiary.set("name", user.name || "")
+				}
 				transaction.setAttributes("beneficiary", beneficiary);
 				tran.beneficiary = beneficiary;
 			}
@@ -123,7 +129,7 @@ export const createTransaction = async (
 			throw new Error("Insufficient balance");
 		}
 		const balance: number = senderAccount.amount - transaction.amount;
-		senderAccount.setDataValue("amount", balance);
+		senderAccount.set("amount", balance);
 
 		// update sender account
 		await senderAccount.save();
@@ -137,7 +143,7 @@ export const createTransaction = async (
 				transaction.beneficiary?.userId!
 			);
 			const balance: number = receiverAccount.amount + transaction.amount;
-			receiverAccount.setAttributes("amount", balance);
+			receiverAccount.set("amount", balance);
 			// update receiver account
 
 			await receiverAccount.save();
@@ -158,7 +164,7 @@ export const createTransaction = async (
 			console.log("Not Send");
 		}
 
-		transactionLog.setDataValue("status", TransactionStatus.PROCESSING);
+		transactionLog.set("status", TransactionStatus.COMPLETED);
 
 		// notify sender: This shouldn't interrupt a successful transaction
 		try {
