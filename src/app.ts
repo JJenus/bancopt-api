@@ -40,7 +40,7 @@ if (!process.env.DEBUG || process.env.NODE_ENV === "production") {
 }
 
 if (process.env.NODE_ENV !== "production") {
-	app.use(expressWinston.logger(loggerOptions));
+	// app.use(expressWinston.logger(loggerOptions));
 }
 
 app.get("/", (req: Request, res: Response<MessageResponse>) => {

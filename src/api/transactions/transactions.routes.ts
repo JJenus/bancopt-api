@@ -12,16 +12,10 @@ router.get(
 	transactionController.findUserTransactions
 );
 
-router.get(
-	"/find/:id",
-	transactionController.findTransactionByTId
-);
+router.get("/find/:id", transactionController.findTransactionByTId);
+// validateRequest({ body: TransactionAttr }),
 
-router.post(
-	"/",
-	validateRequest({ body: TransactionAttr }),
-	transactionController.createTransaction
-);
+router.post("/", transactionController.createTransaction);
 
 router.put(
 	"/",

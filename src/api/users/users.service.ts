@@ -25,11 +25,9 @@ export async function createUser(
 	try {
 		userExists = await User.findOne({ where: { email: userData.email } });
 	} catch (error) {
-		// console.log(error);
 	}
 
 	if (userExists !== null) {
-		// console.log("Email already exists");
 		const issue: ZodIssue = {
 			message: "Email already exists",
 			code: ZodIssueCode.custom,
@@ -63,7 +61,6 @@ export async function findUserByEmail(email: string): Promise<User> {
 		}
 		return user;
 	} catch (error) {
-		// console.log(error);
 		throw new Error("User not found");
 	}
 }
@@ -79,7 +76,6 @@ export async function findUserById(
 		const userAttr: UserUpdateAttributes = user.toJSON();
 		const account = await accountService.findUserAccount(userId);
 		userAttr.account = account.toJSON();
-		console.log(userAttr.account);
 		return userAttr;
 	} catch (error) {
 		throw new Error("User not found");
@@ -107,7 +103,6 @@ export async function updateUser(
 	userId: string,
 	userData: Partial<UserAttributes>
 ): Promise<Partial<User>> {
-	// console.log("\n\nIT GETS HERE\n\n")
 	// Retrieve the user
 	const user = await User.findByPk(userId);
 

@@ -63,7 +63,6 @@ export async function findUser(
 ) {
 	try {
 		const user: UserUpdateAttributes = await userService.findUserById(req.params.id);
-		console.log("USER: ", user.account)
 		res.json(user);
 	} catch (error) {
 		next(error);

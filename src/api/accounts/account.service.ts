@@ -44,7 +44,6 @@ export const createAccount = async (
 export const updateUserAccount = async (
 	uAccount: updateAccount
 ): Promise<Account> => {
-	console.log("Hello world");
 	try {
 		const eAccount = await Account.findByPk(uAccount.id);
 
